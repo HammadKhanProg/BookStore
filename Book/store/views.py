@@ -3,12 +3,12 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-from store.models import Science
+from store.models import Book
 
 @login_required(login_url="signin")
 def home(request):
     data={}
-    storedata=Science.objects.all()
+    storedata=Book.objects.all()
     data={
         "storedata":storedata
     }
