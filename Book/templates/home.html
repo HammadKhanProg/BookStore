@@ -11,17 +11,40 @@
     <title>Home Page</title>
   </head>
   <body>
-    <h1>Welcome to Book Store Website</h1>
-    <h2>List of Books</h2>
-    <ul>
-        {% for n in storedata %}
-          <h3>{{n.Title | upper}}</h1>
-          <p>{{n.Content | safe}}</p>
-          <p>{{n.Author | title}}</p>
-        {% endfor %}
-    </ul>
-    <br>
-    <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+    <div class="container-fluid">
+      <div class="row">
+
+        <!-- For Category -->
+        <div class="col-lg-3 mx-auto mt-4">
+          <p><b>Select Category</b></p>
+          {% for cat in categorydata %}
+          <div class="list-group">
+            <a href="?category={{cat.id}}" class="list-group-item btn">{{cat.name}}</a>
+          </div>
+          {% endfor %}
+          
+        </div>
+
+
+        <!-- For Books -->
+        <div class="row mx-auto col-lg-9">
+          {% for n in storedata %}
+          <div class="card mx-auto mt-4" style="width:18rem;">
+            <img src={{n.image.url}} class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{n.Title | upper}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted "><p>{{n.Author | title}}</p></h6>
+              <p class="card-text">{{n.Content | safe}}</p>
+              <a href="{% url 'logout' %}" class="btn btn-primary btn-sm">See Details</a>
+            </div>
+          </div>
+          {% endfor %}
+      </div>
+        
+      </div>
+    </div>
+    <br> <br>
+    <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>    
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

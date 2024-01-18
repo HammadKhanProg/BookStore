@@ -4,16 +4,24 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from store.models import Book
+from store.models import Category
 
 @login_required(login_url="signin")
 def home(request):
     data={}
-    storedata=Book.objects.all()
+    storedata=None
+    categorydata=Category.objects.all()
+
+    storedataid=request.GET.get('category')
+    if storedataid:
+        storedata=Book.objects.filter(category=storedataid)
+    else:
+        storedata=Book.objects.all()
     data={
-        "storedata":storedata
+        "storedata":storedata,
+        "categorydata":categorydata,
     }
     return render(request,"home.html",data)
-
 def signup (request):
     try:
         if request.method=="POST":
